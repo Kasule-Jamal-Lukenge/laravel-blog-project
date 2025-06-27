@@ -8,7 +8,8 @@ use App\Models\Post;
 class PostController extends Controller
 {
     public function showPosts(){
-        return view('posts.posts-list');
+        $postData = Post::all(); 
+        return view('posts.posts-list', compact('postData'));
     }
 
     public function addPost(){
@@ -31,6 +32,6 @@ class PostController extends Controller
         //saving the data
         $postData->save();
         //redirecting to other page
-        return redirect()->back();
+        return redirect('posts-list');
     }
 }
