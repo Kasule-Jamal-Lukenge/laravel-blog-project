@@ -18,3 +18,5 @@ Route::get('/users-list', function(){
 //posts routes
 route::get('/posts-list', [PostController::class, 'showPosts']);
 route::get('/add-post', [PostController::class, 'addPost']);
+route::post('/add-post', [PostController::class, 'processPost']);
+
