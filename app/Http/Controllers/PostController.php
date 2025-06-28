@@ -12,6 +12,11 @@ class PostController extends Controller
         return view('posts.posts-list', compact('postData'));
     }
 
+     public function adminPosts(){
+        $postData = Post::all(); 
+        return view('posts.admin-post-list', compact('postData'));
+    }
+
     public function addPost(){
         return view('posts.add-post');
     }
@@ -33,5 +38,27 @@ class PostController extends Controller
         $postData->save();
         //redirecting to other page
         return redirect('posts-list');
+    }
+
+    public function fetchPostData($id){
+        $currentPostData = Post::find($id);
+        return view('posts.edit-post', compact('currentPostData'));
+    }
+
+    public function editPost(Request $request, $id){
+        $updatedPost = Post::find($id);
+        $updatedPost->title = $request->title;
+        $updatedPost->description = $request->description;
+        $updatedPostImage = $request->image;
+
+        if($updatedPostImage){
+            $imagename = time().'.'.$updatedPostImage->getClientOriginalExtension();
+            $request->image->move('postImages', $imagename);
+            $updatedPost->image = $imagename;
+        }
+        //saving the changes
+        $updatedPost->save();
+        //redirecting to the admin posts list page
+        return redirect('admin-posts-list');
     }
 }

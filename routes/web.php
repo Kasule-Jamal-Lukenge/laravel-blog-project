@@ -19,4 +19,8 @@ Route::get('/users-list', function(){
 route::get('/posts-list', [PostController::class, 'showPosts']);
 route::get('/add-post', [PostController::class, 'addPost']);
 route::post('/add-post', [PostController::class, 'processPost']);
+route::get('/admin-posts-list', [PostController::class, 'adminPosts']);
+
+route::get('/edit-post/{id}', [PostController::class, 'fetchPostData']);
+route::post('/edit-post/{id}', [PostController::class, 'editPost']);
 
