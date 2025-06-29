@@ -27,7 +27,7 @@
                         <td>
                             <a href="{{url('edit-post', $post->id)}}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                             <a href="" class="btn btn-success"><i class="fa fa-eye"></i></a>
-                            <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="{{url('delete-post', $post->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                     @endforeach

@@ -23,4 +23,5 @@ route::get('/admin-posts-list', [PostController::class, 'adminPosts']);
 
 route::get('/edit-post/{id}', [PostController::class, 'fetchPostData']);
 route::post('/edit-post/{id}', [PostController::class, 'editPost']);
+route::get('/delete-post/{id}', [PostController::class, 'deletePost']);
 

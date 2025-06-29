@@ -61,4 +61,10 @@ class PostController extends Controller
         //redirecting to the admin posts list page
         return redirect('admin-posts-list');
     }
+
+    public function deletePost($id){
+        $postToDelete = Post::find($id);
+        $postToDelete->delete();
+        return redirect('admin-posts-list');
+    }
 }
