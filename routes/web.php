@@ -1,27 +1,20 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-//users routes
-Route::get('/add-user', function(){
-    return view('users.add-user');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('/users-list', function(){
-    return view('users.users-list');
-});
 
-//posts routes
-route::get('/posts-list', [PostController::class, 'showPosts']);
-route::get('/add-post', [PostController::class, 'addPost']);
-route::post('/add-post', [PostController::class, 'processPost']);
-route::get('/admin-posts-list', [PostController::class, 'adminPosts']);
-
-route::get('/edit-post/{id}', [PostController::class, 'fetchPostData']);
-route::post('/edit-post/{id}', [PostController::class, 'editPost']);
-route::get('/delete-post/{id}', [PostController::class, 'deletePost']);
-
+require __DIR__.'/auth.php';
