@@ -37,7 +37,7 @@ class PostController extends Controller
         //saving the data
         $postData->save();
         //redirecting to other page
-        return redirect('posts-list');
+        return redirect('posts');
     }
 
     public function fetchPostData($id){
@@ -46,6 +46,7 @@ class PostController extends Controller
     }
 
     public function editPost(Request $request, $id){
+        
         $updatedPost = Post::find($id);
         $updatedPost->title = $request->title;
         $updatedPost->description = $request->description;
@@ -66,5 +67,10 @@ class PostController extends Controller
         $postToDelete = Post::find($id);
         $postToDelete->delete();
         return redirect('admin-posts-list');
+    }
+
+    public function readPost($id){
+        $postToRead = Post::find($id);
+        return view('posts.read-post', compact('postToRead'));
     }
 }
