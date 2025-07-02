@@ -71,6 +71,7 @@ class PostController extends Controller
 
     public function readPost($id){
         $postToRead = Post::find($id);
-        return view('posts.read-post', compact('postToRead'));
+        $relatedPosts = Post::where('id', '!=', $id)->orderBy('created_at', 'desc')->take(5)->get();
+        return view('posts.read-post', compact('postToRead', 'relatedPosts'));
     }
 }

@@ -10,6 +10,23 @@
         .col-md-9{
             margin: 15px 0px 15px 0px;
         }
+        .col-md-3{
+            margin: 15px 0px 15px 0px;
+        }
+        .post{
+            margin-inline: 8%;
+        }
+        .post-image{
+            /* border: solid black; */
+        }
+        .post-image img{
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        .post-content{
+            margin-top: 2%;
+        }
     </style>
     <body>
         <nav class="navbar navbar-expand-lg bg-danger text-white">
@@ -35,14 +52,28 @@
             </div>
         </nav>
         <div class="row">
-            <div class="col-md-9">
-                <h4>{{$postToRead->title}}</h4>
-                <div class="post-image">
-                    <img src="/postImages/{{$postToRead->image}}" alt="">
+            <div class="col-md-9 border-end pe-8">
+                <div class="post">
+                    <h4>{{$postToRead->title}}</h4>
+                    <div class="post-image">
+                        <img src="/postImages/{{$postToRead->image}}" alt="">
+                    </div>
+                    <div class="post-content">
+                        {{$postToRead->description}}
+                    </div>
                 </div>
-                <div class="post-content">
-                    {{$postToRead->description}}
-                </div>
+            </div>
+            <div class="col-md-3">
+                <h4>Related Posts</h4>
+                @foreach($relatedPosts as $post)
+                    <div class="card mb-2">
+                        <img src="/postImages/{{$post->image}}" class="card-img-top" alt="{{$post->title}}" style="height: 120px; object-fit: cover;">
+                        <div class="card-body">
+                            <h6 class="card-title">{{$post->title}}</h6>
+                            <a href="{{url('read-post', $post->id)}}" class="btn btn-sm btn-danger">Read More</a>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </body>
