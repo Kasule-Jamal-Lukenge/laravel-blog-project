@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RiteshController;
+use App\Http\Controllers\CommentController;
 
 
 // Route::get('/', function () {
@@ -40,5 +41,8 @@ route::post('edit-post/{id}', [PostController::class, 'editPost']);
 //delete post routes
 route::get('delete-post/{id}', [PostController::class, 'deletePost']);
 // Route::resource('ritesh', RiteshController::class);
+
+//Comment Routes
+route::post('/save-comment', [CommentController::class, 'saveComment']);
 
 

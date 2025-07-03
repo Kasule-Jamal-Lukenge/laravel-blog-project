@@ -45,8 +45,13 @@
                             
                             @if(auth()->user())
                             <div class="comments-section pt-4">
-                                <label>Comments:</label>
-                                <textarea class="form-control" name="comment" rows="5" cols="10">Write something....</textarea>
+                                <form action="{{url('/save-comment')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="post_id" value="{{ $postToRead->id }}">
+                                    <label>Write Your Comment Here:</label>
+                                    <textarea class="form-control" name="comment" rows="5" cols="10" placeholder="Tell us what is on your mind...."></textarea>
+                                    <button type="submit" class="btn btn-danger w-100 mt-3">Save Comment</button>
+                                </form>
                             </div>
                             @endif
                         </div>
