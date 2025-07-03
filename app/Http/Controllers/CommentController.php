@@ -17,4 +17,9 @@ class CommentController extends Controller
 
         return redirect()->back()->with('success', 'Comment Added Successfully');
     }
+
+    public function fetchComments($postId){
+        $comments = Model::find($postId);
+        return view('posts.read-post', 'comments');
+    }
 }

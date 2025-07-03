@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
 
 class PostController extends Controller
 {
@@ -72,6 +73,7 @@ class PostController extends Controller
     public function readPost($id){
         $postToRead = Post::find($id);
         $relatedPosts = Post::where('id', '!=', $id)->orderBy('created_at', 'desc')->take(5)->get();
-        return view('posts.read-post', compact('postToRead', 'relatedPosts'));
+         $comments = Comment::where('post_id', $id)->with('user')->latest()->get();
+        return view('posts.read-post', compact('postToRead', 'relatedPosts', 'comments'));
     }
 }

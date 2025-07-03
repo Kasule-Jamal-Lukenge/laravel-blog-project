@@ -45,6 +45,25 @@
                             
                             @if(auth()->user())
                             <div class="comments-section pt-4">
+                                @if($comments->count())
+                                <div class="comments-list pt-4">
+                                    <h5 class="mb-3">Comments ({{ $comments->count() }})</h5>
+                                    @foreach($comments as $comment)
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <strong>{{ $comment->user->name ?? 'Unknown User' }}</strong>
+                                                <small class="text-muted float-end">{{ $comment->created_at->diffForHumans() }}</small>
+                                                <p class="mt-2 mb-0">{{ $comment->comment }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                    @else
+                                        <div class="comments-list pt-4">
+                                            <h5 class="mb-3">Comments ({{ $comments->count() }})</h5>
+                                            <p>No comments yet. Be the first to comment!</p>
+                                        </div>
+                                @endif
                                 <form action="{{url('/save-comment')}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="post_id" value="{{ $postToRead->id }}">
