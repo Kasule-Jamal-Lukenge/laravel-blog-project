@@ -7,14 +7,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     </head>
     <style>
-        .col-md-9{
-            margin: 15px 0px 15px 0px;
-        }
-        .col-md-3{
-            margin: 15px 0px 15px 0px;
-        }
         .post{
-            margin-inline: 8%;
+            /* margin-inline: 8%; */
+            background-color: #fff;
+            border-radius: 4px;
         }
         .post-image{
             /* border: solid black; */
@@ -27,53 +23,47 @@
         .post-content{
             margin-top: 2%;
         }
+        .readMore{
+            text-decoration: none;
+            color: #a2a3a2;
+        }
     </style>
-    <body>
-        <nav class="navbar navbar-expand-lg bg-danger text-white">
-            <div class="container-fluid">
-                <a class="navbar-brand text-white" href="#" style="margin-left:5%;">Rowdy Banter</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
-                        </li> 
-                        <li class="nav-item">
-                            <a class="nav-link text-white" aria-current="page" href="{{url('add-post')}}">Create Post</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-        <div class="row">
-            <div class="col-md-9 border-end pe-8">
-                <div class="post">
-                    <h4>{{$postToRead->title}}</h4>
-                    <div class="post-image">
-                        <img src="/postImages/{{$postToRead->image}}" alt="">
-                    </div>
-                    <div class="post-content">
-                        {{$postToRead->description}}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <h4>Related Posts</h4>
-                @foreach($relatedPosts as $post)
-                    <div class="card mb-2">
-                        <img src="/postImages/{{$post->image}}" class="card-img-top" alt="{{$post->title}}" style="height: 120px; object-fit: cover;">
-                        <div class="card-body">
-                            <h6 class="card-title">{{$post->title}}</h6>
-                            <a href="{{url('read-post', $post->id)}}" class="btn btn-sm btn-danger">Read More</a>
+    <body style="background-color: #f2f5f3;">
+        @include('page-components.navbar');
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="post">
+                        <div class="post-content px-4 py-4">
+                            <h4 class="mb-3">{{$postToRead->title}}</h4>
+                            <div class="post-image">
+                                <img src="/postImages/{{$postToRead->image}}" alt="">
+                            </div>
+                            <div class="post-content">
+                                {{$postToRead->description}}
+                            </div>
+                            
+                            @if(auth()->user())
+                            <div class="comments-section pt-4">
+                                <label>Comments:</label>
+                                <textarea class="form-control" name="comment" rows="5" cols="10">Write something....</textarea>
+                            </div>
+                            @endif
                         </div>
                     </div>
-                @endforeach
+                </div>
+                <div class="col-md-3">
+                    <h4>Related Posts</h4>
+                    @foreach($relatedPosts as $post)
+                        <div class="card mb-2">
+                            <img src="/postImages/{{$post->image}}" class="card-img-top" alt="{{$post->title}}" style="height: 120px; object-fit: cover;">
+                            <div class="card-body">
+                                <h6><a href="{{url('read-post', $post->id)}}" class="card-title text-danger readMore">{{$post->title}}</a></h6>
+                                {{$post->created_at->format('d/m/Y')}}
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </body>

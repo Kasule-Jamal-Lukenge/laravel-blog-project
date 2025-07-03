@@ -7,9 +7,11 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RiteshController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('posts.post-list');
+// });
+
+route::get('/', [PostController::class, 'showPosts']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -36,7 +38,7 @@ route::post('add-post', [PostController::class, 'processPost']);
 route::get('edit-post/{id}', [PostController::class, 'fetchPostData']);
 route::post('edit-post/{id}', [PostController::class, 'editPost']);
 //delete post routes
-route::delete('delete-post/{id}', [PostController::class, 'deletePost']);
+route::get('delete-post/{id}', [PostController::class, 'deletePost']);
 // Route::resource('ritesh', RiteshController::class);
 
 

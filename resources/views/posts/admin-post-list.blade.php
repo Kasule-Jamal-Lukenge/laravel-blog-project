@@ -21,6 +21,7 @@
                     <th>Action</th>
                 </tr>
                     @foreach($postData as $post)
+                    @csrf
                     <tr>
                         <td>{{$post->title}}</td>
                         <td class="description">{{$post->description}}</td>
