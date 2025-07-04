@@ -27,6 +27,15 @@
             text-decoration: none;
             color: #a2a3a2;
         }
+        .social-media-icon{
+            height: 40px;
+            width: 90px;
+            border-radius: 4px;
+            margin-right: 2px;
+            text-decoration: none;
+            color: white;
+            padding: 6px;
+        }
     </style>
     <body style="background-color: #f2f5f3;">
         @include('page-components.navbar');
@@ -43,6 +52,13 @@
                                 {{$postToRead->description}}
                             </div>
                             
+                            <div class="social-media mt-3">
+                                <a href="{{url('../www.facebook.com')}}" class="social-media-icon" style="background-color: #378fdb;"><i class="fab fa-facebook py-2 px-2 fa-lg"></i></a>
+                                <a href="#" class="social-media-icon" style="background-color: black;"><i class="fab fa-twitter py-2 px-2 fa-lg"></i></a>
+                                <a href="#" class="social-media-icon" style="background-color: #378fdb;"><i class="fab fa-telegram py-2 px-2 fa-lg"></i></a>
+                                <a href="#" class="social-media-icon" style="background-color: green;"><i class="fab fa-whatsapp py-2 px-2 fa-lg"></i></a>
+                            </div>
+
                             @if(auth()->user())
                             <div class="comments-section pt-4">
                                 @if($comments->count())
@@ -51,7 +67,7 @@
                                     @foreach($comments as $comment)
                                         <div class="card mb-2">
                                             <div class="card-body">
-                                                <strong>{{ $comment->user->name ?? 'Unknown User' }}</strong>
+                                                <strong class="text-danger">{{ $comment->user->name ?? 'Unknown User' }}</strong>
                                                 <small class="text-muted float-end">{{ $comment->created_at->diffForHumans() }}</small>
                                                 <p class="mt-2 mb-0">{{ $comment->comment }}</p>
                                             </div>
