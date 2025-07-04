@@ -52,15 +52,29 @@
                                 {{$postToRead->description}}
                             </div>
                             
-                            <div class="social-media mt-3">
-                                <a href="{{url('../www.facebook.com')}}" class="social-media-icon" style="background-color: #378fdb;"><i class="fab fa-facebook py-2 px-2 fa-lg"></i></a>
-                                <a href="#" class="social-media-icon" style="background-color: black;"><i class="fab fa-twitter py-2 px-2 fa-lg"></i></a>
-                                <a href="#" class="social-media-icon" style="background-color: #378fdb;"><i class="fab fa-telegram py-2 px-2 fa-lg"></i></a>
-                                <a href="#" class="social-media-icon" style="background-color: green;"><i class="fab fa-whatsapp py-2 px-2 fa-lg"></i></a>
+                            <div class="social-media mt-4">
+                                <div class="row"> 
+                                    <div class="col-md-6">
+                                        <!-- <p><i class="fa fa-thumbs-up"></i>&nbsp;0 Likes</p> -->
+                                        <form action="{{ route('posts.like', $postToRead->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn p-0 pb-2 text-danger">
+                                                <i class="fa fa-thumbs-up {{ $postToRead->isLikedBy(auth()->user()) ? 'text-danger' : '' }}"></i>
+                                                &nbsp;{{ $postToRead->likes->count() }} 
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <a href="edia " class="social-media-icon" style="background-color: #378fdb;"><i class="fab fa-facebook py-2 px-2 fa-lg"></i></a>
+                                        <a href="#" class="social-media-icon" style="background-color: black;"><i class="fab fa-x-twitter py-2 px-2 fa-lg"></i></a>
+                                        <a href="#" class="social-media-icon" style="background-color: #378fdb;"><i class="fab fa-telegram py-2 px-2 fa-lg"></i></a>
+                                        <a href="#" class="social-media-icon" style="background-color: green;"><i class="fab fa-whatsapp py-2 px-2 fa-lg"></i></a>
+                                    </div>
+                                </div>
                             </div>
 
                             @if(auth()->user())
-                            <div class="comments-section pt-4">
+                            <div class="comments-section">
                                 @if($comments->count())
                                 <div class="comments-list pt-4">
                                     <h5 class="mb-3">Comments ({{ $comments->count() }})</h5>
@@ -77,7 +91,7 @@
                                     @else
                                         <div class="comments-list pt-4">
                                             <h5 class="mb-3">Comments ({{ $comments->count() }})</h5>
-                                            <p>No comments yet. Be the first to comment!</p>
+                                            <p class="text-danger">No comments yet. Be the first to comment!</p>
                                         </div>
                                 @endif
                                 <form action="{{url('/save-comment')}}" method="POST">
@@ -94,6 +108,7 @@
                 </div>
                 <div class="col-md-3">
                     <h4>Related Posts</h4>
+                    <hr>
                     @foreach($relatedPosts as $post)
                         <div class="card mb-2">
                             <img src="/postImages/{{$post->image}}" class="card-img-top" alt="{{$post->title}}" style="height: 120px; object-fit: cover;">

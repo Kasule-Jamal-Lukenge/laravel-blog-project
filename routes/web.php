@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RiteshController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 
 
 // Route::get('/', function () {
@@ -33,7 +34,7 @@ route::get('posts', [PostController::class, 'showPosts']);
 route::get('admin-posts-list', [PostController::class, 'adminPosts']);
 route::get('read-post/{id}', [PostController::class, 'readPost']);
 //create post routes
-route::get('create-post', [PostController::class, 'addPost']);
+route::get('add-post', [PostController::class, 'addPost']);
 route::post('add-post', [PostController::class, 'processPost']);
 //edit post routes
 route::get('edit-post/{id}', [PostController::class, 'fetchPostData']);
@@ -44,5 +45,8 @@ route::get('delete-post/{id}', [PostController::class, 'deletePost']);
 
 //Comment Routes
 route::post('/save-comment', [CommentController::class, 'saveComment']);
+
+//Likes Route
+Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->middleware('auth')->name('posts.like');
 
 
