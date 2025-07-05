@@ -46,7 +46,16 @@ route::get('delete-post/{id}', [PostController::class, 'deletePost']);
 //Comment Routes
 route::post('/save-comment', [CommentController::class, 'saveComment']);
 
-//Likes Route
+//Post Likes Route
 Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->middleware('auth')->name('posts.like');
+//Comment Like Route
+Route::post('/comments/{comment}/like', [CommentController::class, 'toggleLike'])->name('comments.like');
+//edit comment routes
+Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->middleware('can:update,comment');
+Route::put('/comments/{comment}', [CommentController::class, 'update'])->middleware('can:update,comment');
+//delete comment route
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->middleware('can:delete,comment');
+
+
 
 

@@ -83,7 +83,20 @@
                                             <div class="card-body">
                                                 <strong class="text-danger">{{ $comment->user->name ?? 'Unknown User' }}</strong>
                                                 <small class="text-muted float-end">{{ $comment->created_at->diffForHumans() }}</small>
-                                                <p class="mt-2 mb-0">{{ $comment->comment }}</p>
+                                                <p class="mt-2">{{ $comment->comment }}</p>
+                                                <div class="comment-likes">
+                                                    <form action="{{ route('comments.like', $comment->id) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    <button type="submit" class="btn p-0">
+                                                        <i class="fa fa-thumbs-up {{ $comment->isLikedBy(auth()->user()) ? 'text-danger' : '' }}"></i>
+                                                        {{ $comment->likes->count() }}
+                                                    </button>
+                                                </form>
+
+                                                    <a href="" class="text-danger text-underline me-1">Reply</a>
+                                                    <a href="" class="text-danger text-underline me-1">Edit</a>
+                                                    <a href="" class="text-danger text-underline me-1">Delete</a>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach
@@ -114,7 +127,7 @@
                             <img src="/postImages/{{$post->image}}" class="card-img-top" alt="{{$post->title}}" style="height: 120px; object-fit: cover;">
                             <div class="card-body">
                                 <h6><a href="{{url('read-post', $post->id)}}" class="card-title text-danger readMore">{{$post->title}}</a></h6>
-                                {{$post->created_at->format('d/m/Y')}}
+                                <span class="fw-bolder fs-6 text-black-50">{{$post->created_at->format('d/m/Y')}}</span>
                             </div>
                         </div>
                     @endforeach

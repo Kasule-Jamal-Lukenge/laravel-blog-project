@@ -22,4 +22,19 @@ class CommentController extends Controller
         $comments = Model::find($postId);
         return view('posts.read-post', 'comments');
     }
+
+    public function toggleLike(Comment $comment){
+        $user = auth()->user();
+
+        if ($comment->isLikedBy($user)) {
+            //unlike
+            $comment->likes()->where('user_id', $user->id)->delete();
+        } else {
+            //like
+            $comment->likes()->create(['user_id' => $user->id]);
+        }
+
+        return back();
+    }
+
 }
