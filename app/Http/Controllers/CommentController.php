@@ -27,10 +27,10 @@ class CommentController extends Controller
         $user = auth()->user();
 
         if ($comment->isLikedBy($user)) {
-            //unlike
+            //unliking a comment
             $comment->likes()->where('user_id', $user->id)->delete();
         } else {
-            //like
+            //liking a comment
             $comment->likes()->create(['user_id' => $user->id]);
         }
 
